@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Money Transfer Form</title>
+
+    
+        <style>
+         body {
+            background-image: url(file:///C:/Users/B.M.RAJESH/Pictures/bank2.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        header {
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+        } nav {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], input[type="number"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        input[type="submit"],  input[type="reset"] {
+            background-color: #0056b3;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        input[type="submit"] ,  input[type="reset"]:hover {
+            background-color: #0056b3;
+        }
+        
+        /* Your CSS styles here */
+    </style>
+</head>
+<body>
+    <header>
+        <h1>THE SPARK BANK OF INDIA</h1>
+    </header>
+    <nav>
+        <a href="wellcome_page.html">Home</a>
+        <a href="bank_app.html">View All Customers</a>
+        <a href="money.html">Transfer Money</a>
+        <a href="history.html">View Transaction History</a>
+    </nav>
+    <div class="container" id="home">
+        <h2>Welcome to our banking app!</h2>
+        <p>Select an option from the navigation above.</p>
+    </div>
+    <br><br><br>
+    <div class="container">
+        <h1>Money Transfer</h1>
+        <form action="#" method="post" id="moneyTransferForm">
+            <label for="senderAccountNumber">Sender's Account Number:</label>
+            <input type="text" id="senderAccountNumber" name="senderAccountNumber" required>
+
+            <label for="receiverAccountNumber">Receiver's Account Number:</label>
+            <input type="text" id="receiverAccountNumber" name="receiverAccountNumber" required>
+
+            <label for="amount">Amount :</label>
+            <input type="number" id="amount" name="amount" required>
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required> <br><br>
+
+            <input type="submit" value="Transfer Money">
+            <input type="reset" value="Clear">
+        </form>
+    </div>
+
+    
+</body>
+    <!-- ... (your HTML content) ... -->
+    
+    <script>
+        // Sample account data for verification (you should replace this with your actual data)
+        const accounts = [
+        { accountNumber: "96321726", balance: 10000 },
+        { accountNumber: "86737678", balance: 205000 },
+        { accountNumber: "62539167", balance: 50000 },
+        { accountNumber: "98367302", balance: 15000 },
+        { accountNumber: "98362382", balance: 10000 },
+        { accountNumber: "55768916", balance: 25000 },
+        { accountNumber: "09936296", balance: 100000 },
+        
+        { accountNumber: "07352682", balance: 20000},
+        { accountNumber: "23465832", balance: 23000 },
+
+            { accountNumber: '87652049', balance: 20000 },
+            
+            // Add more accounts as needed
+        ];
+
+        // Function to handle form submission
+        document.getElementById("moneyTransferForm").addEventListener("submit", function (e) {
+            e.preventDefault(); // Prevent the form from submitting normally
+            
+            // Get form inputs
+            const senderAccountNumber = document.getElementById("senderAccountNumber").value;
+            const receiverAccountNumber = document.getElementById("receiverAccountNumber").value;
+            const amount = parseFloat(document.getElementById("amount").value);
+            const password = document.getElementById("password").value;
+
+            // Find sender and receiver accounts
+            const senderAccount = accounts.find(account => account.accountNumber === senderAccountNumber);
+            const receiverAccount = accounts.find(account => account.accountNumber === receiverAccountNumber);
+
+            if (!senderAccount || !receiverAccount) {
+                alert("Sender or receiver account not matched. Please check the account numbers.");
+                return;
+            }
+
+            if (senderAccount.balance < amount) {
+                alert("Insufficient funds in the sender's account.");
+                return;
+            }
+
+            // Check password (you should replace this with actual password validation logic)
+            if (password !== "12345678") {
+                alert("Incorrect password.");
+                return;
+            }
+
+            // Perform the money transfer
+            senderAccount.balance -= amount;
+            receiverAccount.balance += amount;
+
+            // Display a success message (you can customize this)
+            alert(`Money transferred successfully!\nSender's New Balance: $${senderAccount.balance}\nReceiver's New Balance: $${receiverAccount.balance}`);
+
+            // Clear form inputs
+            document.getElementById("moneyTransferForm").reset();
+        });
+    </script>
+</body>
+</html>
